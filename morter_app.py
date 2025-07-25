@@ -14,7 +14,9 @@ st.sidebar.markdown("---")
 st.sidebar.title("🧱 Raw Material Costs (per ton)")
 sand_cost = st.sidebar.number_input("Sand Cost", value=80.0)
 cement_cost = st.sidebar.number_input("Cement Cost", value=1000.0)
-additive_cost = st.sidebar.number_input("Additive Cost", value=3000.0)
+chaux_cost = st.sidebar.number_input("Chaux aérien Cost", value=1000.0)
+argile_cost = st.sidebar.number_input("Argile Cost", value=700.0)
+sika_cost = st.sidebar.number_input("Sika Poudre Hydrofuge Cost", value=3800.0)
 
 # --- Calculations ---
 bags_filled = tons_produced * 1000 / 25
@@ -34,16 +36,20 @@ st.subheader("📦 Raw Material Usage Estimates")
 
 sand_used = tons_produced * 0.8
 cement_used = tons_produced * 0.18
-additive_used = tons_produced * 0.02
+chaux_used = tons_produced * 0.03
+argile_used = tons_produced * 0.02
+sika_used = tons_produced * 0.01
 
 material_df = pd.DataFrame({
-    "Material": ["Sand", "Cement", "Additives"],
-    "Estimated Tons": [sand_used, cement_used, additive_used],
-    "Cost/ton (MAD)": [sand_cost, cement_cost, additive_cost],
+    "Material": ["Sand", "Cement", "Chaux aérien", "Argile", "Sika Poudre Hydrofuge"],
+    "Estimated Tons": [sand_used, cement_used, chaux_used, argile_used, sika_used],
+    "Cost/ton (MAD)": [sand_cost, cement_cost, chaux_cost, argile_cost, sika_cost],
     "Total Cost (MAD)": [
         round(sand_used * sand_cost, 0),
         round(cement_used * cement_cost, 0),
-        round(additive_used * additive_cost, 0),
+        round(chaux_used * chaux_cost, 0),
+        round(argile_used * argile_cost, 0),
+        round(sika_used * sika_cost, 0),
     ]
 })
 st.dataframe(material_df)
